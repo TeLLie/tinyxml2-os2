@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(tinyxml2 VERSION 9.0.0)
+project(tinyxml2 VERSION 10.0.0)
 
 include(CTest)
 option(tinyxml2_BUILD_TESTING "Build tests for tinyxml2" "${BUILD_TESTING}")
@@ -23,7 +23,7 @@ add_library(tinyxml2 tinyxml2.cpp tinyxml2.h)
 add_library(tinyxml2::tinyxml2 ALIAS tinyxml2)
 
 # Uncomment the following line to require C++11 (or greater) to use tinyxml2
-target_compile_features(tinyxml2 PUBLIC cxx_std_11)
+# target_compile_features(tinyxml2 PUBLIC cxx_std_11)
 target_include_directories(tinyxml2 PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>")
 
 target_compile_definitions(
@@ -31,6 +31,7 @@ target_compile_definitions(
     PUBLIC $<$<CONFIG:Debug>:TINYXML2_DEBUG>
     INTERFACE $<$<BOOL:${BUILD_SHARED_LIBS}>:TINYXML2_IMPORT>
     PRIVATE $<$<CXX_COMPILER_ID:MSVC>:_CRT_SECURE_NO_WARNINGS>
+    PUBLIC _FILE_OFFSET_BITS=64
 )
 
 set_target_properties(
@@ -101,13 +102,6 @@ write_basic_package_version_file(
     tinyxml2-config-version.cmake
     COMPATIBILITY SameMajorVersion
 )
-
-if(OS2)
-set_target_properties(tinyxml2 PROPERTIES
- OS2_DEF_VENDOR "Elbert Pol"
- OS2_DEF_PATCH "${tinyxml2_VERSION_PATCH}"
- OS2_DEF_VERSION "${TINYXML2_VERSION}")
-endif()
 
 install(
     FILES
