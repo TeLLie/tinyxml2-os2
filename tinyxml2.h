@@ -64,7 +64,7 @@ distribution.
 #if defined(_MSC_VER) || defined(__OS2__)
 #   ifdef TINYXML2_EXPORT
 #       define TINYXML2_LIB __declspec(dllexport)
-#   elif defined(TINYXML2_IMPORT)
+#   elif defined(TINYXML2_IMPORT) || !defined(__OS2__)
 #       define TINYXML2_LIB __declspec(dllimport)
 #   else
 #       define TINYXML2_LIB
