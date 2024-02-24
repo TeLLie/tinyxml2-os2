@@ -42,6 +42,13 @@ set_target_properties(
     SOVERSION "${tinyxml2_VERSION_MAJOR}"
 )
 
+if(OS2)
+set_target_properties(tinyxml2 PROPERTIES
+ OS2_DEF_VENDOR "TeLLie OS2 forever"
+ OS2_DEF_PATCH "${TINYXML2_VERSION_PATCH}"
+ OS2_DEF_VERSION "${TINYXML2_VERSION}")
+endif()
+
 if (tinyxml2_BUILD_TESTING)
     add_executable(xmltest xmltest.cpp)
     target_link_libraries(xmltest PRIVATE tinyxml2::tinyxml2)
