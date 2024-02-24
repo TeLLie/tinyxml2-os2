@@ -61,8 +61,10 @@ distribution.
 #   pragma warning(disable: 4251)
 #endif
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__OS2__)
 #   ifdef TINYXML2_EXPORT
+#       define TINYXML2_LIB __declspec(dllexport)
+#   elif defined(__OS2__)
 #       define TINYXML2_LIB __declspec(dllexport)
 #   elif defined(TINYXML2_IMPORT)
 #       define TINYXML2_LIB __declspec(dllimport)
